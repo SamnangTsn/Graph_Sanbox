@@ -103,4 +103,8 @@ public class Node {
 		 }
 		 return false;
 	 }
+	 
+	 public void addWeight(int cost) {
+		 this.weightList.add(cost);
+	 }
 }
