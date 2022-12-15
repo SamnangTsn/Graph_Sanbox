@@ -7,27 +7,65 @@ import java.util.LinkedList;
 public class Node {
 
 	private DataBag data;
-	private LinkedList<Node> adjacencyList;
+	private boolean weighted = false;
+	private LinkedList<Node> adjacencyList = null;
+	private LinkedList<Integer> weightList = null;
 	
-	// random constructor
-	public Node() {
-		
-		this.data = new DataBag();
+	/**
+	 * Automated constructor with random data.
+	 * @param weighted if true Node support weighted graph, false Node do not support weighted graph.
+	 */
+	public Node(boolean weighted) {
+		if(weighted) {
+			this.data = new DataBag();
+			this.weighted = true;
+			this.adjacencyList = new LinkedList<>();
+			this.weightList = new LinkedList<>();
+		}else {
+			this.data = new DataBag();
+			this.adjacencyList = new LinkedList<>();
+		}
 	}
-
-	// customize constructor
-	public Node(DataBag data) {
-		this.data = data;
+	
+	/**
+	 * Customize constructor with input data.
+	 * @param weighted if true Node support weighted graph, false Node do not support weighted graph.
+	 * @param data of the vertex.
+	 */
+	public Node(boolean weighted, DataBag data) {
+		if(weighted) {
+			this.data = data;
+			this.weighted = true;
+			this.adjacencyList = new LinkedList<>();
+			this.weightList = new LinkedList<>();
+		}else {
+			this.data = data;
+			this.adjacencyList = new LinkedList<>();
+		}
 	}
 	
-	//getter methods
-	
+	/**
+	 * Getter method.
+	 * @return data of the node or vertex.
+	 */
 	 public DataBag getData() {
 		 return this.data;
 	 }
 	 
+	 /**
+	  * Getter method.
+	  * @return list of the adjacent node or vertex.
+	  */
 	 public LinkedList<Node> getAdjacencyList(){
 		 return this.adjacencyList;
+	 }
+	 
+	 /**
+	  * Getter method.
+	  * @return list of the weight/cost of the connection edge.
+	  */
+	 public LinkedList<Integer> getWeightedList(){
+		 return this.weightList;
 	 }
 	 
 	 /**
