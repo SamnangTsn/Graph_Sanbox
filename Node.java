@@ -104,6 +104,10 @@ public class Node {
 		 return false;
 	 }
 	 
+	 /**
+	  * Add weight to the weight list.
+	  * @param cost of the edge or connection to be add.
+	  */
 	 public void addWeight(int cost) {
 		 this.weightList.add(cost);
 	 }
