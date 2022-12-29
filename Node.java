@@ -10,6 +10,8 @@ public class Node {
 	private boolean weighted = false;
 	private LinkedList<Node> adjacencyList = null;
 	private LinkedList<Integer> weightList = null;
+	private int xCoordinate;
+	private int yCoordinate;
 	
 	/**
 	 * Automated constructor with random data.
