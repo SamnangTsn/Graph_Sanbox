@@ -1,9 +1,14 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Graph structure contains all the vertices or nodes.
+ * @author Samnang_Thorn
+ *
+ */
 public class Graphs{
 	
-	ArrayList<Node> vertexList = new ArrayList<>();
+	private ArrayList<Node> vertexList = new ArrayList<>();
 	
 	/**
 	 * Constructor with random vertices.
@@ -12,7 +17,7 @@ public class Graphs{
 	public Graphs(boolean weighted) {
 		
 		Node vertex;
-		for(int x = 0; x < 20; x++) {
+		for(int x = 0; x < 5; x++) {
 			vertex = new Node(weighted);
 			vertexList.add(vertex);
 		}
@@ -23,9 +28,17 @@ public class Graphs{
 	private boolean constructConnection(boolean weighted) {
 		Random obj = new Random();
 		int randomInt = obj.nextInt(4) + 1;
-		for(int x = 0; x < this.vertexList.size(); x+= randomInt) {
-			connect(this.vertexList.get(x), this.vertexList.get(x), obj.nextInt(99) + 1);
-		}
+		for(int x = 0; x < this.vertexList.size() - 1; x++) {
+			if(x == randomInt) {
+				randomInt += randomInt;
+				if(randomInt > this.vertexList.size() - 1) {
+					randomInt = (randomInt) - this.vertexList.size() - 2;
+					connect(this.vertexList.get(x), this.vertexList.get(randomInt), obj.nextInt(99) + 1);
+ 				}
+				connect(this.vertexList.get(x), this.vertexList.get(randomInt), obj.nextInt(99) + 1);
+			}
+			connect(this.vertexList.get(x), this.vertexList.get(x+1), obj.nextInt(99) + 1);
+		} 
 		return true;
 	}
 	
@@ -34,11 +47,52 @@ public class Graphs{
 		if(node1.equals(null) || node2.equals(null) || node1.equals(node2)) {
 			return false;
 		}
-		if(cost != 0 && node1.addAdjacent(node2) && node2.addAdjacent(node1)) {
+		node1.addAdjacent(node2);
+		node2.addAdjacent(node1); 
+		if(cost != 0) {
 			node1.addWeight(cost);
 			node2.addWeight(cost);
 		}
 		return true;
 	}
 	
+	public void printGraph() {
+		System.out.println("Graph Vertices: \n");
+		int y = 0;
+		for(int x = 0; x < this.vertexList.size(); x++) {
+			System.out.printf("| %3d | ", this.vertexList.get(x).getData().getData());
+			if(y == 4) {
+				y = 0;
+				System.out.println("\n");
+			}else {
+				y++;
+			}
+		}
+	}
+	
+	public void printGraphDetail() {
+		System.out.println("Graph Data: \n");
+		int y = 0;
+		Node tempNode;
+		for(int x = 0; x < this.vertexList.size(); x++) {
+			tempNode = this.vertexList.get(x);
+			System.out.printf(" | %3d < ", tempNode.getData().getData());
+			for(int i = 0; i < tempNode.getAdjacencyList().size(); i++) {
+				System.out.printf("%3d, ", tempNode.getAdjacencyList().get(i).getData().getData());
+			}
+			System.out.print(" > |");
+			if(y == 4) {
+				y = 0;
+				System.out.println("\n");
+			}else {
+				y++;
+			}
+		}
+	}
+	
+	public int getNumberOfVertices() {
+		return this.vertexList.size();
+	}
+	
 }
+
