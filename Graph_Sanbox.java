@@ -12,7 +12,7 @@ public class Graph_Sanbox {
 		graph.printGraph();
 		graph.printGraphDetail();
 		
-		new GUI();
+		new GUI(graph);
 
 		
 	}
