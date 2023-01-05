@@ -130,4 +130,12 @@ public class Node {
 	 public int getYCoordinate(){
 		return this.yCoordinate;
 	 }
+
+	 public int getCollon(){
+		return this.collon;
+	 }
+
+	 public int getRow(){
+		return this.row;
+	 }
 }
