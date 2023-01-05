@@ -12,12 +12,16 @@ public class Node {
 	private LinkedList<Integer> weightList = null;
 	private int xCoordinate;
 	private int yCoordinate;
+	private char row; // D - J
+	private int collon; // 4 - 10
 	
 	/**
 	 * Automated constructor with random data.
 	 * @param weighted if true Node support weighted graph, false Node do not support weighted graph.
 	 */
-	public Node(boolean weighted) {
+	public Node(boolean weighted, char row, int collon) {
+		this.row = row;
+		this.collon = collon;
 		if(weighted) {
 			this.data = new DataBag();
 			this.weighted = true;
@@ -112,5 +116,18 @@ public class Node {
 	  */
 	 public void addWeight(int cost) {
 		 this.weightList.add(cost);
+	 }
+
+	 public void setXandYCoordinate(int x, int y){
+		this.xCoordinate = x;
+		this.yCoordinate = y;
+	 }
+
+	 public int getXCoordinate(){
+		return this.xCoordinate;
+	 }
+
+	 public int getYCoordinate(){
+		return this.yCoordinate;
 	 }
 }

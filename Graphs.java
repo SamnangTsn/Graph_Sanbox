@@ -14,14 +14,33 @@ public class Graphs{
 	 * Constructor with random vertices.
 	 * @param weighted if true it is weighted graph, otherwise un_weighted graph.
 	 */
-	public Graphs(boolean weighted) {
+	public Graphs(boolean weighted, String size) {
 		
-		Node vertex;
-		for(int x = 0; x < 5; x++) {
-			vertex = new Node(weighted);
-			vertexList.add(vertex);
+		int collon;
+		char row = 68; // ascii value of D
+
+		if(size.equalsIgnoreCase("small")){
+			collon = 4;
+		}else if(size.equalsIgnoreCase("medium")){
+			collon = 7;
+		}else if(size.equalsIgnoreCase("large")){
+			collon = 10;
+		}else{
+			throw new IllegalArgumentException("Invalid Input: Size!");
 		}
-		constructConnection(weighted);
+
+		Node vertex;
+		// row
+		for(int r = 0; r < collon; r++){
+			// collon
+			for(int c = 0; c < collon; c++) {
+
+				vertex = new Node(weighted, row, collon + 1);
+				vertexList.add(vertex);
+			}
+			row+=1;
+		}
+		//constructConnection(weighted);
 	}
 	
 	// helper method
@@ -92,6 +111,10 @@ public class Graphs{
 	
 	public int getNumberOfVertices() {
 		return this.vertexList.size();
+	}
+
+	public ArrayList<Node> getVertexList(){
+		return this.vertexList;
 	}
 	
 }
