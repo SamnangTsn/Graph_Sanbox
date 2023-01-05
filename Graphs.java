@@ -35,30 +35,34 @@ public class Graphs{
 			// collon
 			for(int c = 0; c < collon; c++) {
 
-				vertex = new Node(weighted, row, collon + 1);
+				vertex = new Node(weighted, row, c + 1);
 				vertexList.add(vertex);
 			}
 			row+=1;
 		}
-		//constructConnection(weighted);
+		constructConnection(weighted);
 	}
 	
 	// helper method
-	private boolean constructConnection(boolean weighted) {
+	private void constructConnection(boolean weighted) {
 		Random obj = new Random();
-		int randomInt = obj.nextInt(4) + 1;
-		for(int x = 0; x < this.vertexList.size() - 1; x++) {
-			if(x == randomInt) {
-				randomInt += randomInt;
-				if(randomInt > this.vertexList.size() - 1) {
-					randomInt = (randomInt) - this.vertexList.size() - 2;
-					connect(this.vertexList.get(x), this.vertexList.get(randomInt), obj.nextInt(99) + 1);
- 				}
-				connect(this.vertexList.get(x), this.vertexList.get(randomInt), obj.nextInt(99) + 1);
+		int randomInt = obj.nextInt(10) + 1; // random weight's cost of the edges
+
+		for(int y = 0; y < this.vertexList.size() - 1; y++){
+			for(int x = 0; x < this.vertexList.size() - 1; x++){
+
+				if(x != y){
+					if((this.vertexList.get(y).getRow() - this.vertexList.get(x).getRow() <= 1) && (this.vertexList.get(y).getRow() - this.vertexList.get(x).getRow() >= -1)){
+						if((this.vertexList.get(y).getCollon() - this.vertexList.get(x).getCollon() <= 1) && (this.vertexList.get(y).getCollon() - this.vertexList.get(x).getCollon()) >= -1){
+							if(this.vertexList.get(y).getRow() == this.vertexList.get(x).getRow() || this.vertexList.get(y).getCollon() == this.vertexList.get(x).getCollon()){
+								connect(this.vertexList.get(y), this.getVertexList().get(x), randomInt);
+								randomInt = obj.nextInt(10) + 1;
+							}
+						}
+					}
+				}
 			}
-			connect(this.vertexList.get(x), this.vertexList.get(x+1), obj.nextInt(99) + 1);
-		} 
-		return true;
+		}
 	}
 	
 	// helper method
@@ -80,7 +84,7 @@ public class Graphs{
 		int y = 0;
 		for(int x = 0; x < this.vertexList.size(); x++) {
 			System.out.printf("| %3d | ", this.vertexList.get(x).getData().getData());
-			if(y == 4) {
+			if(y == 3) {
 				y = 0;
 				System.out.println("\n");
 			}else {
@@ -96,11 +100,15 @@ public class Graphs{
 		for(int x = 0; x < this.vertexList.size(); x++) {
 			tempNode = this.vertexList.get(x);
 			System.out.printf(" | %3d < ", tempNode.getData().getData());
-			for(int i = 0; i < tempNode.getAdjacencyList().size(); i++) {
-				System.out.printf("%3d, ", tempNode.getAdjacencyList().get(i).getData().getData());
+			for(int i = 0; i < 4; i++) {
+				if(i >= tempNode.getAdjacencyList().size()){
+					System.out.printf("%3d, ", 0);
+				}else{
+					System.out.printf("%3d, ", tempNode.getAdjacencyList().get(i).getData().getData());
+				}
 			}
 			System.out.print(" > |");
-			if(y == 4) {
+			if(y == 3) {
 				y = 0;
 				System.out.println("\n");
 			}else {

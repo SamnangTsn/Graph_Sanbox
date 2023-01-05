@@ -26,8 +26,8 @@ public class GraphLayout extends JPanel{
 
 		// drawing frame component
 
-		char[] charArray = {1, 2, 3};
-		G.drawChars(charArray, ALLBITS, ABORT, x, y);
+		
+		
 		
 		// drawing vertex
 		
